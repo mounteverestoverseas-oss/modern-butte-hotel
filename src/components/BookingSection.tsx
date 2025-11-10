@@ -6,11 +6,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Sparkles } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const BookingSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [guests, setGuests] = useState("2");
@@ -40,10 +42,20 @@ export const BookingSection = () => {
   };
 
   return (
-    <section id="booking" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="booking" className="py-24 bg-muted/30 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full filter blur-3xl animate-float"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gold-accent/20 rounded-full filter blur-3xl animate-float" style={{ animationDelay: "2s" }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
+          <div ref={ref} className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full mb-4">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-sm text-primary font-medium">Reserve Now</span>
+            </div>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Book Your Stay
             </h2>
@@ -52,7 +64,7 @@ export const BookingSection = () => {
             </p>
           </div>
 
-          <Card className="shadow-xl border-border">
+          <Card className={`shadow-2xl border-border backdrop-blur-sm bg-card/95 transition-all duration-1000 hover:shadow-primary/20 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
             <CardHeader>
               <CardTitle className="text-2xl">Reservation Details</CardTitle>
             </CardHeader>
@@ -171,8 +183,11 @@ export const BookingSection = () => {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full py-6 text-lg">
-                  Submit Booking Request
+                <Button type="submit" className="w-full py-6 text-lg group hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+                  <span className="flex items-center justify-center gap-2">
+                    Submit Booking Request
+                    <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                  </span>
                 </Button>
               </form>
             </CardContent>

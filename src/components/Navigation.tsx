@@ -30,14 +30,14 @@ export const Navigation = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? "bg-background/95 backdrop-blur-xl shadow-2xl border-b border-border/50" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold text-primary">NEWA HOME</div>
-          <div className="hidden md:block text-xs text-muted-foreground">Boutique Hotel</div>
+        <div className="flex items-center space-x-2 group cursor-pointer" onClick={() => scrollToSection("hero")}>
+          <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform duration-300">NEWA HOME</div>
+          <div className="hidden md:block text-xs text-muted-foreground group-hover:text-primary transition-colors duration-300">Boutique Hotel</div>
         </div>
 
         {/* Desktop Navigation */}
@@ -46,15 +46,16 @@ export const Navigation = () => {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              className="relative text-sm font-medium text-foreground hover:text-primary transition-colors duration-300 group"
             >
               {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
             </button>
           ))}
         </div>
 
         <div className="hidden md:block">
-          <Button onClick={() => scrollToSection("booking")} variant="default">
+          <Button onClick={() => scrollToSection("booking")} variant="default" className="hover:scale-105 hover:shadow-lg transition-all duration-300">
             Book Now
           </Button>
         </div>
