@@ -5,9 +5,10 @@ export type BookingSearch = {
   checkOut?: string;
   guests: number;
   selectedRoomSlug?: string;
+  showResults: boolean;
 };
 
-let state: BookingSearch = { guests: 2 };
+let state: BookingSearch = { guests: 2, showResults: false };
 const listeners = new Set<() => void>();
 
 const emit = () => listeners.forEach((l) => l());
