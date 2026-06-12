@@ -11,6 +11,9 @@ import { toast } from "sonner";
 
 export const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [checkIn, setCheckIn] = useState<Date>();
+  const [checkOut, setCheckOut] = useState<Date>();
+  const [guests, setGuests] = useState("2");
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -21,6 +24,14 @@ export const HeroSection = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleCheckAvailability = () => {
+    if (!checkIn || !checkOut) {
+      toast.error("Please select check-in and check-out dates");
+      return;
+    }
+    scrollToSection("booking");
   };
 
   return (
