@@ -8,6 +8,7 @@ import { ArrowRight, Sparkles, CalendarIcon, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import { bookingStore } from "@/stores/bookingStore";
 
 export const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -31,7 +32,20 @@ export const HeroSection = () => {
       toast.error("Please select check-in and check-out dates");
       return;
     }
-    scrollToSection("booking");
+    if (checkOut <= checkIn) {
+      toast.error("Check-out must be after check-in");
+      return;
+    }
+    bookingStore.set({
+      checkIn: checkIn.toISOString(),
+      checkOut: checkOut.toISOString(),
+      guests: Number(guests),
+      showResults: true,
+      selectedRoomSlug: undefined,
+    });
+    setTimeout(() => {
+      document.getElementById("availability")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   return (
