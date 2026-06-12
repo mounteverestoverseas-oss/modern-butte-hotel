@@ -14,7 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          check_in: string
+          check_out: string
+          created_at: string
+          guest_email: string
+          guest_name: string
+          guest_phone: string
+          guests: number
+          id: string
+          notes: string | null
+          room_id: string
+          status: string
+          total_price: number
+        }
+        Insert: {
+          check_in: string
+          check_out: string
+          created_at?: string
+          guest_email: string
+          guest_name: string
+          guest_phone: string
+          guests?: number
+          id?: string
+          notes?: string | null
+          room_id: string
+          status?: string
+          total_price: number
+        }
+        Update: {
+          check_in?: string
+          check_out?: string
+          created_at?: string
+          guest_email?: string
+          guest_name?: string
+          guest_phone?: string
+          guests?: number
+          id?: string
+          notes?: string | null
+          room_id?: string
+          status?: string
+          total_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rooms: {
+        Row: {
+          amenities: string[]
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          max_guests: number
+          name: string
+          price_per_night: number
+          slug: string
+        }
+        Insert: {
+          amenities?: string[]
+          created_at?: string
+          description: string
+          id?: string
+          image_url?: string | null
+          max_guests?: number
+          name: string
+          price_per_night: number
+          slug: string
+        }
+        Update: {
+          amenities?: string[]
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          max_guests?: number
+          name?: string
+          price_per_night?: number
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
