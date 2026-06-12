@@ -1,11 +1,19 @@
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import heroCourtyard from "@/assets/hero-courtyard.png";
 import heroVideo from "@/assets/hero-video.mp4.asset.json";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, CalendarIcon, Users } from "lucide-react";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { toast } from "sonner";
 
 export const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [checkIn, setCheckIn] = useState<Date>();
+  const [checkOut, setCheckOut] = useState<Date>();
+  const [guests, setGuests] = useState("2");
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -16,6 +24,14 @@ export const HeroSection = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleCheckAvailability = () => {
+    if (!checkIn || !checkOut) {
+      toast.error("Please select check-in and check-out dates");
+      return;
+    }
+    scrollToSection("booking");
   };
 
   return (
@@ -88,6 +104,93 @@ export const HeroSection = () => {
             >
               Explore Rooms
             </Button>
+          </div>
+
+          {/* Inline Booking Widget */}
+          <div
+            className="animate-fade-in-up"
+            style={{ animationDelay: "1s", animationFillMode: "backwards" }}
+          >
+            <div className="mt-8 mx-auto max-w-3xl bg-primary-foreground/10 backdrop-blur-xl border border-primary-foreground/20 rounded-2xl p-4 md:p-6 shadow-2xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                {/* Check-in */}
+                <div className="space-y-2 text-left">
+                  <label className="text-xs font-medium text-primary-foreground/80 uppercase tracking-wider">Check-in</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4 text-gold-accent" />
+                        {checkIn ? format(checkIn, "MMM dd, yyyy") : <span className="text-primary-foreground/60">Select date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={checkIn}
+                        onSelect={setCheckIn}
+                        disabled={(date) => date < new Date()}
+                        className="pointer-events-auto"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                {/* Check-out */}
+                <div className="space-y-2 text-left">
+                  <label className="text-xs font-medium text-primary-foreground/80 uppercase tracking-wider">Check-out</label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4 text-gold-accent" />
+                        {checkOut ? format(checkOut, "MMM dd, yyyy") : <span className="text-primary-foreground/60">Select date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={checkOut}
+                        onSelect={setCheckOut}
+                        disabled={(date) => date < (checkIn || new Date())}
+                        className="pointer-events-auto"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                {/* Guests */}
+                <div className="space-y-2 text-left">
+                  <label className="text-xs font-medium text-primary-foreground/80 uppercase tracking-wider">Guests</label>
+                  <Select value={guests} onValueChange={setGuests}>
+                    <SelectTrigger className="w-full bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 [&>span]:text-primary-foreground [&>svg]:text-primary-foreground/60">
+                      <Users className="mr-2 h-4 w-4 text-gold-accent" />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 Guest</SelectItem>
+                      <SelectItem value="2">2 Guests</SelectItem>
+                      <SelectItem value="3">3 Guests</SelectItem>
+                      <SelectItem value="4">4 Guests</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* CTA */}
+                <Button
+                  size="lg"
+                  onClick={handleCheckAvailability}
+                  className="w-full py-5 text-base font-semibold shadow-xl hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+                >
+                  Check Availability
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
