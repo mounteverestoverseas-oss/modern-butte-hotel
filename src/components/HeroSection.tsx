@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import heroCourtyard from "@/assets/hero-courtyard.png";
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -22,16 +23,22 @@ export const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Parallax Background */}
+      {/* Parallax Video Background */}
       <div
         className="absolute inset-0 transition-transform duration-100 ease-out"
-        style={{
-          transform: `translateY(${scrollY * 0.5}px)`,
-          backgroundImage: `linear-gradient(135deg, rgba(15, 15, 15, 0.65), rgba(40, 30, 25, 0.45)), url(${heroCourtyard})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+        style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+      >
+        <video
+          src={heroVideo.url}
+          poster={heroCourtyard}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/65 to-[rgba(40,30,25,0.45)]" />
+      </div>
 
       {/* Animated Overlay Pattern */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20" />
