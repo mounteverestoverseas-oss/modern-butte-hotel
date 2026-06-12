@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import heroCourtyard from "@/assets/hero-courtyard.png";
 import heroVideo from "@/assets/hero-video.mp4.asset.json";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, CalendarIcon, Users } from "lucide-react";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { toast } from "sonner";
 
 export const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
