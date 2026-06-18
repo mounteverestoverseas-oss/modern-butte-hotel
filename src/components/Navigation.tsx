@@ -34,6 +34,11 @@ export const Navigation = () => {
   const taglineColor = isScrolled ? "text-muted-foreground" : "text-primary-foreground/70";
   const mobileIconColor = isScrolled ? "text-foreground" : "text-primary-foreground";
 
+  const textColor = isScrolled ? "text-foreground" : "text-primary-foreground";
+  const logoColor = isScrolled ? "text-primary" : "text-primary-foreground";
+  const taglineColor = isScrolled ? "text-muted-foreground" : "text-primary-foreground/70";
+  const mobileIconColor = isScrolled ? "text-foreground" : "text-primary-foreground";
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
