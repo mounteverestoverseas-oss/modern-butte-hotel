@@ -28,6 +28,11 @@ export const Navigation = () => {
     { name: "Contact", id: "contact" },
   ];
 
+  const textColor = isScrolled ? "text-foreground" : "text-primary-foreground";
+  const logoColor = isScrolled ? "text-primary" : "text-primary-foreground";
+  const taglineColor = isScrolled ? "text-muted-foreground" : "text-primary-foreground/70";
+  const mobileIconColor = isScrolled ? "text-foreground" : "text-primary-foreground";
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
@@ -36,8 +41,8 @@ export const Navigation = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2 group cursor-pointer" onClick={() => scrollToSection("hero")}>
-          <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform duration-300">NEWA HOME</div>
-          <div className="hidden md:block text-xs text-muted-foreground group-hover:text-primary transition-colors duration-300">Boutique Hotel</div>
+          <div className={`text-2xl font-bold ${logoColor} group-hover:scale-105 transition-transform duration-300`}>NEWA HOME</div>
+          <div className={`hidden md:block text-xs ${taglineColor} group-hover:text-primary transition-colors duration-300`}>Boutique Hotel</div>
         </div>
 
         {/* Desktop Navigation */}
@@ -46,7 +51,7 @@ export const Navigation = () => {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className="relative text-sm font-medium text-foreground hover:text-primary transition-colors duration-300 group"
+              className={`relative text-sm font-medium ${textColor} hover:text-primary transition-colors duration-300 group`}
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
@@ -62,7 +67,7 @@ export const Navigation = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-foreground"
+          className={`md:hidden ${mobileIconColor}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
