@@ -72,6 +72,16 @@ const AdminBookings = () => {
     navigate("/auth", { replace: true });
   };
 
+  const [claiming, setClaiming] = useState(false);
+  const claimAdmin = async () => {
+    setClaiming(true);
+    const { error } = await supabase.rpc("claim_first_admin");
+    setClaiming(false);
+    if (error) return toast.error(error.message);
+    toast.success("You're now an admin. Reloading…");
+    setTimeout(() => window.location.reload(), 600);
+  };
+
   const updateStatus = async (id: string, status: string) => {
     const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
     if (error) return toast.error(error.message);
@@ -100,6 +110,12 @@ const AdminBookings = () => {
             <p className="text-muted-foreground text-sm">
               You're signed in as <span className="font-medium">{email}</span>, but this account does
               not have the <code>admin</code> role. Ask an existing admin to grant you access.
+            </p>
+            <Button onClick={claimAdmin} disabled={claiming} className="w-full">
+              {claiming ? <Loader2 className="w-4 h-4 animate-spin" /> : "Make me admin (one-click)"}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              Only works if no admin exists yet. After the first admin is set, ask them to grant you access.
             </p>
             <Button variant="outline" onClick={signOut} className="w-full">
               <LogOut className="w-4 h-4 mr-2" /> Sign Out
