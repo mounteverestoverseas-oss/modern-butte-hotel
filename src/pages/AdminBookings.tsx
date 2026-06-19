@@ -72,6 +72,16 @@ const AdminBookings = () => {
     navigate("/auth", { replace: true });
   };
 
+  const [claiming, setClaiming] = useState(false);
+  const claimAdmin = async () => {
+    setClaiming(true);
+    const { error } = await supabase.rpc("claim_first_admin");
+    setClaiming(false);
+    if (error) return toast.error(error.message);
+    toast.success("You're now an admin. Reloading…");
+    setTimeout(() => window.location.reload(), 600);
+  };
+
   const updateStatus = async (id: string, status: string) => {
     const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
     if (error) return toast.error(error.message);
