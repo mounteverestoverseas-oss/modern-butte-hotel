@@ -111,6 +111,12 @@ const AdminBookings = () => {
               You're signed in as <span className="font-medium">{email}</span>, but this account does
               not have the <code>admin</code> role. Ask an existing admin to grant you access.
             </p>
+            <Button onClick={claimAdmin} disabled={claiming} className="w-full">
+              {claiming ? <Loader2 className="w-4 h-4 animate-spin" /> : "Make me admin (one-click)"}
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              Only works if no admin exists yet. After the first admin is set, ask them to grant you access.
+            </p>
             <Button variant="outline" onClick={signOut} className="w-full">
               <LogOut className="w-4 h-4 mr-2" /> Sign Out
             </Button>
