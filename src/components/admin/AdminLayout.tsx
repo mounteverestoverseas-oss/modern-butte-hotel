@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LayoutDashboard, CalendarCheck, BedDouble, Users, LogOut, ShieldAlert, Loader2, UtensilsCrossed, Receipt } from "lucide-react";
-import { toast } from "sonner";
+
 
 const items = [
   { title: "Overview", url: "/admin", icon: LayoutDashboard, end: true },
