@@ -67,6 +67,87 @@ export type Database = {
           },
         ]
       }
+      menu_items: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          is_available: boolean
+          name: string
+          price: number
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_available?: boolean
+          name: string
+          price: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_available?: boolean
+          name?: string
+          price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      restaurant_orders: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          customer_name: string
+          id: string
+          items: Json
+          notes: string | null
+          status: string
+          subtotal: number
+          table_number: string | null
+          tax: number
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          customer_name?: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          status?: string
+          subtotal?: number
+          table_number?: string | null
+          tax?: number
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          customer_name?: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          status?: string
+          subtotal?: number
+          table_number?: string | null
+          tax?: number
+          total?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       rooms: {
         Row: {
           amenities: string[]
