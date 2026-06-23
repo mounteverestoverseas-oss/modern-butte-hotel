@@ -17,13 +17,15 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LayoutDashboard, CalendarCheck, BedDouble, Users, LogOut, ShieldAlert, Loader2 } from "lucide-react";
+import { LayoutDashboard, CalendarCheck, BedDouble, Users, LogOut, ShieldAlert, Loader2, UtensilsCrossed, Receipt } from "lucide-react";
 import { toast } from "sonner";
 
 const items = [
   { title: "Overview", url: "/admin", icon: LayoutDashboard, end: true },
   { title: "Bookings", url: "/admin/bookings", icon: CalendarCheck },
   { title: "Rooms", url: "/admin/rooms", icon: BedDouble },
+  { title: "Menu", url: "/admin/menu", icon: UtensilsCrossed },
+  { title: "Restaurant Orders", url: "/admin/restaurant-orders", icon: Receipt },
   { title: "Users", url: "/admin/users", icon: Users },
 ];
 

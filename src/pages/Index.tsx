@@ -5,6 +5,7 @@ import { RoomsSection } from "@/components/RoomsSection";
 import { GallerySection } from "@/components/GallerySection";
 import { BookingSection } from "@/components/BookingSection";
 import { AmenitiesSection } from "@/components/AmenitiesSection";
+import { RestaurantSection } from "@/components/RestaurantSection";
 import { Footer } from "@/components/Footer";
 import { AvailabilityResults } from "@/components/AvailabilityResults";
 import { useBookingSearch } from "@/stores/bookingStore";
@@ -18,6 +19,7 @@ const Index = () => {
       <AvailabilityResults visible={showResults} />
       <AboutSection />
       <RoomsSection />
+      <RestaurantSection />
       <GallerySection />
       <AmenitiesSection />
       <BookingSection />
