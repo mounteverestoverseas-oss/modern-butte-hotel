@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LayoutDashboard, CalendarCheck, BedDouble, Users, LogOut, ShieldAlert, Loader2, UtensilsCrossed, Receipt } from "lucide-react";
-import { toast } from "sonner";
+
 
 const items = [
   { title: "Overview", url: "/admin", icon: LayoutDashboard, end: true },
@@ -92,7 +92,6 @@ const AdminLayout = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
-  const [claiming, setClaiming] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -122,14 +121,6 @@ const AdminLayout = () => {
     navigate("/auth", { replace: true });
   };
 
-  const claimAdmin = async () => {
-    setClaiming(true);
-    const { error } = await supabase.rpc("claim_first_admin");
-    setClaiming(false);
-    if (error) return toast.error(error.message);
-    toast.success("You're now an admin. Reloading…");
-    setTimeout(() => window.location.reload(), 600);
-  };
 
   if (loading) {
     return (
@@ -151,13 +142,7 @@ const AdminLayout = () => {
           <CardContent className="space-y-4">
             <p className="text-muted-foreground text-sm">
               Signed in as <span className="font-medium">{email}</span>. This account doesn't have admin
-              access.
-            </p>
-            <Button onClick={claimAdmin} disabled={claiming} className="w-full">
-              {claiming ? <Loader2 className="w-4 h-4 animate-spin" /> : "Make me admin (one-click)"}
-            </Button>
-            <p className="text-xs text-muted-foreground">
-              Only works if no admin exists yet.
+              access. Contact the hotel administrator to be granted access.
             </p>
             <Button variant="outline" onClick={signOut} className="w-full">
               <LogOut className="w-4 h-4 mr-2" /> Sign Out
@@ -167,6 +152,7 @@ const AdminLayout = () => {
       </main>
     );
   }
+
 
   return (
     <SidebarProvider>

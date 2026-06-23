@@ -10,7 +10,6 @@ import { Loader2 } from "lucide-react";
 
 const AuthPage = () => {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,19 +28,8 @@ const AuthPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin/bookings` },
-        });
-        if (error) throw error;
-        toast.success("Account created. You can now sign in.");
-        setMode("signin");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
     } catch (err: any) {
       toast.error(err.message ?? "Authentication failed");
     } finally {
@@ -49,13 +37,12 @@ const AuthPage = () => {
     }
   };
 
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader>
-          <CardTitle className="text-2xl">
-            {mode === "signin" ? "Staff Sign In" : "Create Staff Account"}
-          </CardTitle>
+          <CardTitle className="text-2xl">Staff Sign In</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} className="space-y-4">
@@ -68,15 +55,12 @@ const AuthPage = () => {
               <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : mode === "signin" ? "Sign In" : "Sign Up"}
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Sign In"}
             </Button>
-            <button
-              type="button"
-              className="text-sm text-muted-foreground underline w-full text-center"
-              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-            >
-              {mode === "signin" ? "Need an account? Sign up" : "Have an account? Sign in"}
-            </button>
+            <p className="text-xs text-muted-foreground text-center">
+              Staff accounts are provisioned by the hotel administrator.
+            </p>
+
           </form>
         </CardContent>
       </Card>
