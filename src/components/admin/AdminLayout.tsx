@@ -151,13 +151,7 @@ const AdminLayout = () => {
           <CardContent className="space-y-4">
             <p className="text-muted-foreground text-sm">
               Signed in as <span className="font-medium">{email}</span>. This account doesn't have admin
-              access.
-            </p>
-            <Button onClick={claimAdmin} disabled={claiming} className="w-full">
-              {claiming ? <Loader2 className="w-4 h-4 animate-spin" /> : "Make me admin (one-click)"}
-            </Button>
-            <p className="text-xs text-muted-foreground">
-              Only works if no admin exists yet.
+              access. Contact the hotel administrator to be granted access.
             </p>
             <Button variant="outline" onClick={signOut} className="w-full">
               <LogOut className="w-4 h-4 mr-2" /> Sign Out
@@ -167,6 +161,7 @@ const AdminLayout = () => {
       </main>
     );
   }
+
 
   return (
     <SidebarProvider>
