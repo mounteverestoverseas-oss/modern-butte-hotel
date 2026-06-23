@@ -92,7 +92,6 @@ const AdminLayout = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
-  const [claiming, setClaiming] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -122,14 +121,6 @@ const AdminLayout = () => {
     navigate("/auth", { replace: true });
   };
 
-  const claimAdmin = async () => {
-    setClaiming(true);
-    const { error } = await supabase.rpc("claim_first_admin");
-    setClaiming(false);
-    if (error) return toast.error(error.message);
-    toast.success("You're now an admin. Reloading…");
-    setTimeout(() => window.location.reload(), 600);
-  };
 
   if (loading) {
     return (
