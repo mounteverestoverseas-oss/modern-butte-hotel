@@ -38,7 +38,7 @@ export const RestaurantSection = () => {
               loading="lazy"
             />
             <div className="absolute -bottom-6 -right-6 hidden md:block bg-primary text-primary-foreground px-6 py-4 font-serif">
-              <div className="text-3xl leading-none">7th</div>
+              <div className="text-3xl leading-none">4th</div>
               <div className="text-[10px] uppercase tracking-widest mt-1">Floor Terrace</div>
             </div>
           </div>
